@@ -5,9 +5,16 @@ For example, when the list is sorted into alphabetical order, COLIN, which is wo
 
 What is the total of all the name scores in the file?
 
-
+==> 871198282
 '''
 
-f = open('./problem22.txt', 'r')
-f.read()
-f.close()
+def name_val(name):
+    return sum([(ord(c)-64) for c in name if c.isalpha()])
+
+with open('./problem22.txt', 'r') as f:
+    names = sorted(f.read().split(","))
+
+total = 0
+for i in xrange(0,len(names)):
+    total += name_val(names[i])*(i+1)
+print total
