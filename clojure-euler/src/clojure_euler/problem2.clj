@@ -10,16 +10,5 @@
 ;==> 4613732
 
 (def golden_ratio (/ (+ 1 (Math/pow 5 0.5)) 2))
-(def multiplier (* golden_ratio 3))
-
-
-
-
-golden_ratio = (1+5**.5)/2
-multiplier = golden_ratio**3
-fib_val = 2
-sum = 0
-while fib_val < 4000000:
-    sum += fib_val
-    fib_val = round(fib_val*multiplier)
-print int(sum)
+(def multiplier (Math/pow golden_ratio 3))
+(reduce + (take-while #(< % 4000000N) (iterate #(Math/round (* % multiplier)) 2)))
