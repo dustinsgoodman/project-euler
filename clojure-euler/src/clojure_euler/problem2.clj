@@ -8,7 +8,10 @@
 ;do not exceed four million, find the sum of the even-valued terms.
 
 ;==> 4613732
+(ns clojure-euler.problem2)
 
 (def golden_ratio (/ (+ 1 (Math/pow 5 0.5)) 2))
 (def multiplier (Math/pow golden_ratio 3))
-(reduce + (take-while #(< % 4000000N) (iterate #(Math/round (* % multiplier)) 2)))
+(defn solve-problem2 []
+  (reduce + (take-while #(< % 4000000N)
+                        (iterate #(Math/round (* % multiplier)) 2))))
