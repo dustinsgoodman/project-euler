@@ -11,7 +11,7 @@ What is the total of all the name scores in the file?
 def name_val(name):
     return sum([(ord(c)-64) for c in name if c.isalpha()])
 
-with open('./problem22.txt', 'r') as f:
+with open('../problem22.txt', 'r') as f:
     names = sorted(f.read().split(","))
 
 total = 0
