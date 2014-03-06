@@ -27,6 +27,10 @@ class BTNode(object):
             count += 1
         return count
 
+    def __str__(self):
+        return str(self.data)
+
+
 class BinaryTree(object):
     """
     Implements ADT for a binary tree.
@@ -35,35 +39,6 @@ class BinaryTree(object):
     def __init__(self):
         self.root = None
         self.count = 0
-
-    def insert(self, data, NodeType = BTNode):
-        """
-        Inserts new element into the tree.
-        O(log(n))
-
-        @return: inserted node      
-        """
-        self.count += 1
-
-        if self.root is None:
-            self.root = NodeType(None, data)
-        else:
-            current = self.root
-            while True:
-                if data < current.data:
-                    if current.left is None:
-                        current.left = NodeType(current, data)
-                        return current.left
-                    else:
-                        current = current.left
-                elif data > current.data:
-                    if current.right is None:
-                        current.right = NodeType(current, data)
-                        return current.right
-                    else:
-                        current = current.right
-                else:
-                    return current
 
     def search(self, data):
         """
@@ -90,17 +65,35 @@ class BinaryTree(object):
                     else:
                         current = current.right
 
-    def __remove_helper(self, node):
+    def insert(self, data, NodeType = BTNode):
         """
-        * Decrement total count of nodes in tree
-        * Delete removed node object from memory
+        Inserts new element into the tree.
+        O(log(n))
 
-        @return: value of deleted node
+        @return: inserted node      
         """
-        self.count -= 1
-        ret = node.data
-        del node
-        return ret
+        self.count += 1
+
+        if self.root is None:
+            self.root = NodeType(None, data)
+            return self.root
+        else:
+            current = self.root
+            while True:
+                if data < current.data:
+                    if current.left is None:
+                        current.left = NodeType(current, data)
+                        return current.left
+                    else:
+                        current = current.left
+                elif data > current.data:
+                    if current.right is None:
+                        current.right = NodeType(current, data)
+                        return current.right
+                    else:
+                        current = current.right
+                else:
+                    return current
 
     def remove(self, data):
         """
@@ -112,43 +105,43 @@ class BinaryTree(object):
         node = self.search(data)
         if node is None:
             return
-        else:
-            children_count = node.children_count()
-            parent = node.parent
-            if children_count == 0:
-                if parent.left is node:
-                    parent.left = None
-                else:
-                    parent.right = None
-                return self.__remove_helper(node)
-            elif children_count == 1:
-                if node.left:
-                    child = node.left
-                else:
-                    child = node.right
-                if parent:
-                    if parent.left is node:
-                        parent.left = child
-                    else:
-                        parent.right = child
-                return self.__remove_helper(node)
+
+        children_count = node.children_count()
+        parent = node.parent
+        if children_count == 0:
+            if parent.left is node:
+                parent.left = None
             else:
-                successor = self.minimum(node.right)
-
-                if successor.parent is not node:
-                    successor.parent.left = None
-                successor.parent = node.parent
-
-                successor.left = node.left
-                node.left.parent = successor
-                successor.right = node.right
-                node.right.parent = successor
-
-                if node.parent.left is node:
-                    node.parent.left = successor
+                parent.right = None
+            return self.remove_helper(node)
+        elif children_count == 1:
+            if node.left:
+                child = node.left
+            else:
+                child = node.right
+            if parent:
+                if parent.left is node:
+                    parent.left = child
                 else:
-                    node.parent.right = successor
-                return self.__remove_helper(node)
+                    parent.right = child
+            return self.remove_helper(node)
+        else:
+            successor = self.minimum(node.right)
+
+            if successor.parent is not node:
+                successor.parent.left = None
+            successor.parent = node.parent
+
+            successor.left = node.left
+            node.left.parent = successor
+            successor.right = node.right
+            node.right.parent = successor
+
+            if node.parent.left is node:
+                node.parent.left = successor
+            else:
+                node.parent.right = successor
+            return self.remove_helper(node)
 
     def minimum(self, node):
         """
@@ -229,7 +222,7 @@ class BinaryTree(object):
             if node.right is not None:
                 queue.append(node.right)
 
-    def print_inorder(self, node):
+    def print_inorder(self, node = None):
         """
         Print a tree using inorder traversal from the given node.
         """
@@ -259,3 +252,38 @@ class BinaryTree(object):
         self.print_postorder(node.left)
         self.print_postorder(node.right)
         print node.data
+
+    def remove_helper(self, node):
+        """
+        * Decrement total count of nodes in tree
+        * Delete removed node object from memory
+
+        @return: value of deleted node
+        """
+        self.count -= 1
+        ret = node.data
+        del node
+        return ret
+
+    def out(self, start_node = None):
+        if start_node == None:
+            start_node = self.root
+        space_symbol = " "
+        spaces_count = 80
+        out_string = ""
+        initial_spaces_string  = space_symbol * spaces_count + "\n" 
+        if not start_node:
+            return "AVLTree is empty"
+        else:
+            level = [start_node]
+            while (len([i for i in level if (not i is None)])>0):
+                level_string = initial_spaces_string
+                for i in xrange(len(level)):
+                    j = (i+1)* spaces_count / (len(level)+1)
+                    level_string = level_string[:j] + (str(level[i]) if level[i] else space_symbol) + level_string[j+1:]
+                level_next = []
+                for i in level:
+                    level_next += ([i.left, i.right] if i else [None, None])
+                level = level_next
+                out_string += level_string                    
+        return out_string
