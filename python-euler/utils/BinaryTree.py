@@ -273,7 +273,7 @@ class BinaryTree(object):
         out_string = ""
         initial_spaces_string  = space_symbol * spaces_count + "\n" 
         if not start_node:
-            return "AVLTree is empty"
+            return "Tree is empty"
         else:
             level = [start_node]
             while (len([i for i in level if (not i is None)])>0):
