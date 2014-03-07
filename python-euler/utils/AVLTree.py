@@ -247,24 +247,4 @@ class AVLTree(BinaryTree):
         self.recompute_height(right)
 
     def out(self, start_node = None):
-        if start_node == None:
-            start_node = self.root
-        space_symbol = " "
-        spaces_count = 80
-        out_string = ""
-        initial_spaces_string  = space_symbol * spaces_count + "\n" 
-        if not start_node:
-            return "AVLTree is empty"
-        else:
-            level = [start_node]
-            while (len([i for i in level if (not i is None)])>0):
-                level_string = initial_spaces_string
-                for i in xrange(len(level)):
-                    j = (i+1)* spaces_count / (len(level)+1)
-                    level_string = level_string[:j] + (str(level[i]) if level[i] else space_symbol) + level_string[j+1:]
-                level_next = []
-                for i in level:
-                    level_next += ([i.left, i.right] if i else [None, None])
-                level = level_next
-                out_string += level_string                    
-        return out_string
+        return super(AVLTree, self).out(start_node)
