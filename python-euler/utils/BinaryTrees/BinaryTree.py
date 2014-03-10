@@ -1,51 +1,22 @@
-"""
-Implements a binary search tree.
-Space: O(N)
-"""
-
-class BTNode(object):
-    """
-    Node object for a binary tree structure.
-    """
-
-    def __init__(self, parent, data = None):
-        self.data = data
-        self.left = None
-        self.right = None
-        self.parent = parent
-
-    def children_count(self):
-        """
-        Returns the number of children nodes
-
-        @returns number of children: 0, 1, 2
-        """
-        count = 0
-        if self.left:
-            count += 1
-        if self.right:
-            count += 1
-        return count
-
-    def __str__(self):
-        return str(self.data)
-
+from BTNode import *
 
 class BinaryTree(object):
     """
-    Implements ADT for a binary tree.
+    Implements a binary search tree.
+    Space: O(N)
     """
 
     def __init__(self):
+        """
+        @return: empty binary tree
+        """
         self.root = None
         self.count = 0
 
     def search(self, data):
         """
-        Searches for data in tree. Returns node or None.
         O(log(n))
-
-        @return: node matching search criteria
+        @return: node matching search criteria or None if no match
         """
         if self.root is None:
             return None
@@ -67,13 +38,9 @@ class BinaryTree(object):
 
     def insert(self, data, NodeType = BTNode):
         """
-        Inserts new element into the tree.
         O(log(n))
-
-        @return: inserted node      
+        @return: inserted node
         """
-        self.count += 1
-
         if self.root is None:
             self.root = NodeType(None, data)
             return self.root
@@ -83,12 +50,14 @@ class BinaryTree(object):
                 if data < current.data:
                     if current.left is None:
                         current.left = NodeType(current, data)
+                        self.count += 1
                         return current.left
                     else:
                         current = current.left
                 elif data > current.data:
                     if current.right is None:
                         current.right = NodeType(current, data)
+                        self.count += 1
                         return current.right
                     else:
                         current = current.right
@@ -97,10 +66,8 @@ class BinaryTree(object):
 
     def remove(self, data):
         """
-        Removes data from tree if it exists and return data.
         O(log(n))
-
-        @return: value of removed node
+        @return: value of removed node or None if nothing removed
         """
         node = self.search(data)
         if node is None:
@@ -266,6 +233,9 @@ class BinaryTree(object):
         return ret
 
     def out(self, start_node = None):
+        """
+        @return: string containing visual representation of tree
+        """
         if start_node == None:
             start_node = self.root
         space_symbol = " "
