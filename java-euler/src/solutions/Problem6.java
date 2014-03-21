@@ -22,18 +22,12 @@ package solutions;
  */
 public class Problem6 {
 
-	public static long sumOfNums(long n) {
-		return n*(n+1)/2;
-	}
 	
-	public static long sumOfSquares(long n) {
-		return (n*(n+1)*((2*n)+1))/6;
-	}
 	
 	public static void main(String[] args) {
 		long n = 100,
-			 sos = sumOfSquares(n),
-			 son = sumOfNums(n);
+			 sos = Helpers.sumOfSquares(n),
+			 son = Helpers.sumOfNums(n);
 		System.out.println(son*son - sos);
 	}
 

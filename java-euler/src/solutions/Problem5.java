@@ -14,26 +14,12 @@ package solutions;
  */
 public class Problem5 {
 	
-	public static int gcd(int a, int b) {
-		if (b == 0)
-			return a;
-		else
-			return gcd(b, a%b);
-	}
 	
-	public static int lcm(int a, int b) {
-		if (a % b == 0)
-			return a;
-		else if (b % a == 0)
-			return b;
-		else
-			return a*b / gcd(a,b);
-	}
 	
 	public static void main(String[] args) {
 		int i, div = 1;
 		for (i = 2; i < 21; i++)
-			div = lcm(i, div);
+			div = Helpers.lcm(i, div);
 		System.out.println(div);
 	}
 }
