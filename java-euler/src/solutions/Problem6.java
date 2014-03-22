@@ -26,8 +26,8 @@ public class Problem6 {
 	
 	public static void main(String[] args) {
 		long n = 100,
-			 sos = Helpers.sumOfSquares(n),
-			 son = Helpers.sumOfNums(n);
+			 sos = Helpers.sum_of_squares(n),
+			 son = Helpers.sum_of_nums(n);
 		System.out.println(son*son - sos);
 	}
 

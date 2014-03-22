@@ -16,7 +16,7 @@ public class Problem3 {
 		ArrayList<Long> factors = Helpers.factor(600851475143L);
 		
 		for (long factor: factors) {
-			if (Helpers.isPrime(factor) && factor > max) {
+			if (Helpers.is_prime(factor) && factor > max) {
 				max = factor;
 			}
 		}

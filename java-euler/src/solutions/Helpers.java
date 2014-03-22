@@ -21,7 +21,7 @@ public class Helpers {
 		return factors;
 	}
 	
-	public static boolean isPrime(long n) {
+	public static boolean is_prime(long n) {
 		if (n % 2 == 0) return false;
 		for (long i = 3; i < Math.sqrt(n) + 1; i += 2) {
 			if (n % i == 0) return false;
@@ -52,11 +52,11 @@ public class Helpers {
 			return a*b / gcd(a,b);
 	}
 	
-	public static long sumOfNums(long n) {
+	public static long sum_of_nums(long n) {
 		return n*(n+1)/2;
 	}
 	
-	public static long sumOfSquares(long n) {
+	public static long sum_of_squares(long n) {
 		return (n*(n+1)*((2*n)+1))/6;
 	}
 }
