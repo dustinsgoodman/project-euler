@@ -7,13 +7,11 @@
 #
 # ==> 906609
 
+require './toolkit'
+include Toolkit
+
 def palindrome?(val)
   val.to_s == val.to_s.reverse
-end
-
-def range_generator(s, e, r)
-  range = (s..e).to_a
-  r ? range.reverse : range
 end
 
 max_palindrome = 0

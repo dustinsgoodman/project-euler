@@ -4,16 +4,12 @@
 
 # ==> 6857
 
+require './toolkit'
+include Toolkit
+
 def factor(n)
   range = (1..((n**0.5)+1)).to_a
   range.select { |i| n % i == 0 }.map { |i| [i, n/i] }.flatten.sort
-end
-
-def prime?(num)
-  return false if num % 2 == 0
-  range = (3..((num**0.5)+1).to_i).step(2).to_a
-  return false if range.any? { |i| num % i == 0 }
-  true
 end
 
 largest_prime = factor(600851475143).select { |f| prime?(f) }.max

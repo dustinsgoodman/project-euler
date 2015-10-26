@@ -6,12 +6,8 @@
 #
 # ==> 104743
 
-def prime?(num)
-  return false if num % 2 == 0
-  range = (3..((num**0.5)+1).to_i).step(2).to_a
-  return false if range.any? { |i| num % i == 0 }
-  true
-end
+require './toolkit'
+include Toolkit
 
 count = 1
 i = 3
